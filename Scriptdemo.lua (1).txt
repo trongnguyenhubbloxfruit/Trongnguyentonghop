@@ -1,0 +1,29 @@
+-- ⚙️ Cấu hình tên boss muốn farm
+local BossName = "Saber Expert" -- 📝 Đổi tên boss tại đây (ví dụ: "Saber Expert", "Thunder God", "Ice Admiral", v.v.)
+
+_G.AutoBossFarm = true
+
+while _G.AutoBossFarm do
+    wait()
+
+    local player = game.Players.LocalPlayer
+    local char = player.Character or player.CharacterAdded:Wait()
+    local hrp = char:WaitForChild("HumanoidRootPart")
+    local enemies = game:GetService("Workspace").Enemies
+
+    for i, enemy in pairs(enemies:GetChildren()) do
+        if enemy.Name == BossName and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+            repeat
+                wait()
+                -- Teleport đến gần boss
+                hrp.CFrame = enemy.HumanoidRootPart.CFrame * CFrame.new(0, 0, 5)
+
+                -- Đánh boss (dùng phím Z - chỉnh nếu bạn dùng phím khác)
+                game:GetService("VirtualInputManager"):SendKeyEvent(true, "Z", false, game)
+                wait(0.1)
+                game:GetService("VirtualInputManager"):SendKeyEvent(false, "Z", false, game)
+
+            until enemy.Humanoid.Health <= 0 or not _G.AutoBossFarm
+        end
+    end
+end
