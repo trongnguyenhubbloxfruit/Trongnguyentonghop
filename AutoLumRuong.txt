@@ -1,0 +1,24 @@
+repeat wait() until game:IsLoaded()
+
+local chestNames = {
+    "Chest", "Chest2", "Chest3" -- tên các loại chest
+}
+
+function tpTo(pos)
+    local plyr = game.Players.LocalPlayer
+    if plyr.Character and plyr.Character:FindFirstChild("HumanoidRootPart") then
+        plyr.Character.HumanoidRootPart.CFrame = CFrame.new(pos)
+    end
+end
+
+while true do
+    for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+        if table.find(chestNames, v.Name) then
+            if v:FindFirstChild("TouchInterest") then
+                tpTo(v.Position + Vector3.new(0,3,0))
+                wait(1.5)
+            end
+        end
+    end
+    wait(5)
+end
