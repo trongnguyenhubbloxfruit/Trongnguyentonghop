@@ -1,0 +1,11 @@
+while true do
+    wait(1)
+    for i,v in pairs(game.Workspace:GetChildren()) do
+        if v:IsA("Tool") and string.find(v.Name:lower(), "fruit") then
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Handle.CFrame
+            wait(0.5)
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Handle, 0)
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Handle, 1)
+        end
+    end
+end
